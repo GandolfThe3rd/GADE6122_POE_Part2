@@ -35,7 +35,7 @@ namespace Hero_Adventure
             random = new Random();
             tempW = random.Next(MIN_SIZE, MAX_SIZE);
             tempH = random.Next(MIN_SIZE, MAX_SIZE);
-            level = new Level(tempH, tempW, currentLevelNumber);
+            level = new Level(tempH, tempW, 1, currentLevelNumber);
         }
 
         public override string ToString()
@@ -50,6 +50,10 @@ namespace Hero_Adventure
                     {
 
                         return level.ToString();
+                    }
+                case GameState.GameOver:
+                    {
+                        return "Game Over";
                     }
                 default:
                     {
@@ -75,10 +79,49 @@ namespace Hero_Adventure
                 NextLevel();
                 return true;
             }
+            else if (targetTile is PickupTile)
+            {
+                foreach (PickupTile pickup in level.PickupTiles)
+                {
+                    if (targetTile.Position == pickup.Position)
+                    {
+                        //Tile temp;
+
+
+                        //level.hero.Position = targetTile.Position;
+
+                        //temp = level.hero;
+                        //temp.Position = level.hero.Position;
+                        //targetTile = new EmptyTile(temp.Position);
+
+                        //level.tiles[level.hero.Position.X, level.hero.Position.Y] = level.hero;
+                        //level.tiles[targetTile.Position.X, targetTile.Position.Y] = targetTile;
+
+                        pickup.ApplyEffect(level.hero);
+                        targetTile = new EmptyTile(pickup.Position);
+                        level.SwopTiles(level.hero, targetTile);
+
+
+                        Level.UpdateVision();
+
+                        if (callEnemies == false)
+                        {
+                            callEnemies = true;
+                        }
+                        else
+                        {
+                            callEnemies = false;
+                        }
+
+                    }
+                }
+                        return true;
+            }
             else if (targetTile is EmptyTile)
             {
+                Level.UpdateVision();
                 level.SwopTiles(level.hero, targetTile);
-                Level.UpdateVision(level);
+                Level.UpdateVision();
 
                 if (callEnemies == false)
                 {
@@ -99,10 +142,15 @@ namespace Hero_Adventure
 
         public void TriggerMovement(Direction aDirection)
         {
+            if (gameState == GameState.GameOver)
+            {
+                return;
+            }
+
             level.hero.UpdateVision(level);
             MoveHero(aDirection);
 
-            // every secind call:
+            // every second call:
             if (callEnemies == true)
             {
                 MoveEnemies(Level.Enemies);
@@ -135,25 +183,26 @@ namespace Hero_Adventure
 
             tempW = random.Next(MAX_SIZE, MAX_SIZE);
             tempH = random.Next(MAX_SIZE, MAX_SIZE);
-            level = new Level(tempH, tempW, currentLevelNumber, tempHero);
+            level = new Level(tempH, tempW, currentLevelNumber, 1, tempHero);
 
             currentLevelNumber++;
         }
 
         private void MoveEnemies(EnemyTile[] enemys)
         {
-            Tile targetTile;
+            Tile targetTile = null;
 
             for (int y = 0; y < enemys.Length; y++)
             {
-                if (enemys[y].isDead == true || enemys[y].GetMove(out targetTile) == false)
+                if (enemys[y].isDead == false && enemys[y].GetMove(out targetTile) == true)
                 {
-                    return;
+                    level.UpdateVision();
+                    Level.SwopTiles(enemys[y], targetTile);
+                    Level.UpdateVision();
                 }
                 else
                 {
-                    Level.SwopTiles(enemys[y], targetTile);
-                    Level.UpdateVision(level);
+                    return;
                 }
             }
         }
@@ -176,6 +225,11 @@ namespace Hero_Adventure
 
         public void TriggerAttack(Direction direction)
         {
+            if (gameState == GameState.GameOver)
+            {
+                return;
+            }
+
             bool successful;
 
             successful = HeroAttack(direction);
@@ -183,6 +237,11 @@ namespace Hero_Adventure
             if (successful)
             {
                 EnemiesAttack();
+
+                if (level.hero.IsDead == true)
+                {
+                    gameState = GameState.GameOver;
+                }
             }
         }
 
@@ -202,6 +261,11 @@ namespace Hero_Adventure
                     }
                 }
             }
+        }
+
+        public string HeroStats
+        {
+            get { return $"{Level.hero.hitPoints} / {Level.hero.maximumHitPoints}"; }
         }
 
     }

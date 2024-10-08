@@ -30,10 +30,13 @@ namespace Hero_Adventure
         public void UpdateDisplay()
         {
             lblDisplay.Text = engine.ToString();
+            lblHeroStats.Text = engine.HeroStats;
 
             // Temporary
             lblCoords.Text = engine.coords;
         }
+
+
 
         private void btnUp_Click(object sender, EventArgs e)
         {

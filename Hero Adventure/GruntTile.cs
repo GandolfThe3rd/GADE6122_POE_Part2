@@ -25,7 +25,7 @@ namespace Hero_Adventure
                 {
                     case false:
                         {
-                            return Convert.ToChar("G");
+                            return Convert.ToChar("Ϫ");
                         }
                     default:
                         {
@@ -58,7 +58,7 @@ namespace Hero_Adventure
                 while (loop)
                 {
 
-                    result = vision[random.Next(0, 4)];
+                    result = Vision[random.Next(0, 4)];
                     
                     if(result is  EmptyTile)
                     {

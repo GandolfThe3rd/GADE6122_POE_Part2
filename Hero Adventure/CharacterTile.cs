@@ -28,7 +28,8 @@ namespace Hero_Adventure
 
         public void UpdateVision(Level aLevel)
         {
-            Position heroPos = aLevel.Hero.Position;
+            //Position heroPos = aLevel.Hero.Position;
+            Position heroPos = Position; // fixed this bitch!!
 
             vision[0] = aLevel.tiles[heroPos.X, heroPos.Y - 1]; // 0
             vision[1] = aLevel.tiles[heroPos.X + 1, heroPos.Y]; // 1
@@ -70,6 +71,15 @@ namespace Hero_Adventure
         {
             get { return vision; }
             set { vision = value; }
+        }
+
+        public void Heal(int healAmmount)
+        {
+            hitPoints += healAmmount;
+            if (hitPoints > maximumHitPoints)
+            {
+                hitPoints = maximumHitPoints;
+            }
         }
     }
 }

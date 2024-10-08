@@ -17,7 +17,12 @@ namespace Hero_Adventure
         public HeroTile hero;
         public ExitTile exit;
         private EnemyTile[] enemies;
+        private PickupTile[] pickupTiles;
 
+        public PickupTile[] PickupTiles
+        {
+            get { return pickupTiles; }
+        }
 
         public int Width
         {
@@ -30,13 +35,14 @@ namespace Hero_Adventure
             set { height = value; }
         }
 
-        public Level(int width, int height,int noOfEnemies, HeroTile aHero = null)
+        public Level(int width, int height,int noOfEnemies, int noOfPickups, HeroTile aHero = null)
         {
             Position randomPlace;
 
             Width = width;
             Height = height;
             enemies = new EnemyTile[noOfEnemies];
+            pickupTiles = new PickupTile[noOfPickups];
 
             tiles = new Tile[Width, Height];
             InitialiseTiles();
@@ -69,6 +75,12 @@ namespace Hero_Adventure
                 enemies[i] = (EnemyTile)CreateTile(TileType.Enemy, randomPlace);
             }
 
+            for (int j = 0; j < noOfPickups; j++)
+            {
+                randomPlace = GetRandomEmptyPosition();
+                pickupTiles[j] = (PickupTile)CreateTile(TileType.Pickup, randomPlace);
+            }
+
         }
 
         public enum TileType
@@ -77,7 +89,8 @@ namespace Hero_Adventure
             Wall,
             Hero,
             Exit,
-            Enemy
+            Enemy,
+            Pickup
         }
 
         private Tile CreateTile(TileType aTileType, Position aPosition)
@@ -111,6 +124,12 @@ namespace Hero_Adventure
                 case TileType.Enemy:
                     {
                         GruntTile tile = new GruntTile(aPosition);
+                        tiles[aPosition.X, aPosition.Y] = tile;
+                        return tile;
+                    }
+                case TileType.Pickup:
+                    {
+                        HealthPickup tile = new HealthPickup(aPosition);
                         tiles[aPosition.X, aPosition.Y] = tile;
                         return tile;
                     }
@@ -196,7 +215,7 @@ namespace Hero_Adventure
 
         public void SwopTiles(Tile tile1, Tile tile2)
         {
-            Tile tempTile1 = tile1;
+            /*Tile tempTile1 = tile1;
             Tile tempTile2 = tile2;
 
             tile1.X = tempTile2.X; // Object 1 becomes Object 2
@@ -208,27 +227,24 @@ namespace Hero_Adventure
             tile2 = tempTile1;
 
             tiles[tile1.X, tile1.Y] = tile1;
-            tiles[tile2.X, tile2.Y] = tile2; //Snake Code
+            tiles[tile2.X, tile2.Y] = tile2; */ //Snake Code
 
-            /*Position tempTile = tile1.Position;
+            Position tempTile = tile1.Position;
 
             tile1.Position = tile2.Position;
-            tile1.Position = tempTile;
+            tile2.Position = tempTile;
 
             tiles[tile1.Position.X, tile1.Position.Y] = tile1;
-            tiles[tile2.Position.X, tile2.Position.Y] = tile2;*/
-
-            tempTile1 = null;
-            tempTile2 = null;
+            tiles[tile2.Position.X, tile2.Position.Y] = tile2;
         }
 
-        public void UpdateVision(Level aLevel)
+        public void UpdateVision()
         {
-            hero.UpdateVision(aLevel);
+            hero.UpdateVision(this);
 
             for (int y = 0; y < enemies.Length; y++)
             {
-                enemies[y].UpdateVision(aLevel);
+                enemies[y].UpdateVision(this);
             }
         }
 

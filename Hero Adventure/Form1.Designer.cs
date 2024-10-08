@@ -38,6 +38,7 @@
             this.btnAttackLeft = new System.Windows.Forms.Button();
             this.btnAttackDown = new System.Windows.Forms.Button();
             this.btnAttackRight = new System.Windows.Forms.Button();
+            this.lblHeroStats = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblDisplay
@@ -139,11 +140,21 @@
             this.btnAttackRight.UseVisualStyleBackColor = true;
             this.btnAttackRight.Click += new System.EventHandler(this.btnAttackRight_Click);
             // 
+            // lblHeroStats
+            // 
+            this.lblHeroStats.AutoSize = true;
+            this.lblHeroStats.Location = new System.Drawing.Point(783, 373);
+            this.lblHeroStats.Name = "lblHeroStats";
+            this.lblHeroStats.Size = new System.Drawing.Size(35, 13);
+            this.lblHeroStats.TabIndex = 10;
+            this.lblHeroStats.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 592);
+            this.Controls.Add(this.lblHeroStats);
             this.Controls.Add(this.btnAttackRight);
             this.Controls.Add(this.btnAttackDown);
             this.Controls.Add(this.btnAttackLeft);
@@ -174,6 +185,7 @@
         private System.Windows.Forms.Button btnAttackLeft;
         private System.Windows.Forms.Button btnAttackDown;
         private System.Windows.Forms.Button btnAttackRight;
+        private System.Windows.Forms.Label lblHeroStats;
     }
 }
 

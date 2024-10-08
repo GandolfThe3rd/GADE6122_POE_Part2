@@ -18,7 +18,5 @@ namespace Hero_Adventure
 
         public abstract CharacterTile[] GetTargets();
 
-
-
     }
 }
