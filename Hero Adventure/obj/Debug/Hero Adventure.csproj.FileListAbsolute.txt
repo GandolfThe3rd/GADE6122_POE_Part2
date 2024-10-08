@@ -1,0 +1,10 @@
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\bin\Debug\Hero Adventure.exe.config
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\bin\Debug\Hero Adventure.exe
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\bin\Debug\Hero Adventure.pdb
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\obj\Debug\Hero Adventure.csproj.AssemblyReference.cache
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\obj\Debug\Hero_Adventure.Form1.resources
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\obj\Debug\Hero_Adventure.Properties.Resources.resources
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\obj\Debug\Hero Adventure.csproj.GenerateResource.cache
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\obj\Debug\Hero Adventure.csproj.CoreCompileInputs.cache
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\obj\Debug\Hero Adventure.exe
+C:\Users\ethan\OneDrive\Desktop\Stuff\Visual Studio Files\Semester 2\Hero Adventure\obj\Debug\Hero Adventure.pdb
